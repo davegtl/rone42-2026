@@ -1,0 +1,52 @@
+if SHIELD_RONE_LEFT
+
+config ZMK_KEYBOARD_NAME
+    default "Rone"
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default y
+
+# The central receives the peripheral (right) battery level over BLE.
+# This is what makes the right half's battery available on the central
+# for the dual-battery display widget (added in the follow-up step).
+config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING
+    default y
+
+endif # SHIELD_RONE_LEFT
+
+if SHIELD_RONE_LEFT || SHIELD_RONE_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+# --- Display (nice!view, left/central only) ---
+if ZMK_DISPLAY
+
+    # nice!view is a Sharp memory LCD on SPI, not an I2C OLED.
+    config SSD1306
+        default n
+
+    config SPI
+        default y
+
+endif # ZMK_DISPLAY
+
+# --- LVGL tuning for the 1-bit nice!view panel ---
+if LVGL
+
+    config LV_Z_VDB_SIZE
+        default 64
+
+    config LV_DPI_DEF
+        default 148
+
+    config LV_Z_BITS_PER_PIXEL
+        default 1
+
+    choice LV_COLOR_DEPTH
+        default LV_COLOR_DEPTH_1
+    endchoice
+
+endif # LVGL
+
+endif # SHIELD_RONE_LEFT || SHIELD_RONE_RIGHT

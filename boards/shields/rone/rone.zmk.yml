@@ -1,0 +1,12 @@
+file_format: "1"
+id: rone
+name: Rone
+type: shield
+url: https://github.com/davegtl/
+requires: [pro_micro]
+features:
+  - keys
+  - display
+siblings:
+  - rone_left
+  - rone_right
